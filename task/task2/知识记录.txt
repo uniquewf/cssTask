@@ -1,0 +1,95 @@
+什么是跨域：
+    当两个域具有相同的协议（如HTTP），相同的端口（如80），相同的host（如www.google.com），那么我们就可以认为他们是相同的域（协议，域名，端口都必须相同）。
+
+    跨域就是指着协议，域名，端口不一致，出于安全考虑，跨域的资源之间是无法交互的（例如一般情况跨域的JavaScript无法交互，当然有很多解决跨域的方案）
+
+Access-Control-Allow-Origin
+Access-Control-Allow-Origin是HTML5中定义的一种解决资源跨域的策略。
+在response添加 Access-Control-Allow-Origin
+也可以设置为 * 表示该资源谁都可以用
+Access-Control-Allow-Origin: *
+如果资源是html页面，可以设置 
+
+<meta http-equiv="Access-Control-Allow-Origin" content="*">
+
+
+1、关于git我们需要知道的是，其有缓存区工作区以及版本库和远程库。
+git add将文件从工作区添加暂存区
+git conimt 将暂存区的的文件添加到版本库
+git push将版本库的文件上传到云端远程库
+
+2、git clone 这个命令就是我们需要把远程库的文件下载到本地使用这条命令或者是需要把别人的库下载到本地都可以使用git clone命令
+
+
+
+
+Git：
+添加远程仓库，本地仓库有了，远程我也想有仓库，并且让这两个仓库进行远程同步。
+GitHub的仓库可以作为备份，其他人也可以通过该仓库来协作。
+目的：达到备份和让别人协作的效果。
+
+实现步骤如下：
+1、登录GitHub，在GitHub界面中找到“Create a new repo”按钮，翻译过来就是创建一个新的仓库
+
+2、在Repository name 填入仓库名字。其它保持默认即可。接着点击Create repository按钮。一个新的仓库创建成功。
+
+3、新仓库界面有两个提示：一个是从创建的新仓库克隆出新的仓库，另一个是把已有的本地仓库与新仓库关联。
+
+4、在本地仓库下运行命令：git remote add origin git@github.com:GitHub账户名/本地仓库名.git
+origin是GitHub默认叫法。
+SSH Key 公钥
+
+5、git push -u origin master 把本地仓库（实际上是当前分支master）所有内容推送到远程库。
+因为远程库刚是新建的，所有加上 -u （第一次推送）。-u的作用：Git把本地master分支内容推送到远程新的master分支，同时把本地的master分支和远程的master分支关联起来。所以除了第一次需要，后面的推送和拉取都不需要 -u参数。
+
+
+5、GitHub给出的协议，默认的ssh，其它例如HTTPS，
+   默认的ssh优点是速度快，HTTPS是范围广。
+   ssh的缺点是有时候端口未开放，HTTPS缺点是速度慢，而且每次推送必须输入口令。
+
+6、创建分支：git checkout -b（表创建并切换） dev  ，相当于git branch Dev gitcheackout Dev
+   列出所有分支：git branch 前面带 *号表示当前分支 ，接着可以在当前分支提交你想提交的内容
+
+7、切回master分支：git checkout master  
+   合并指定分支到当前分支：git merge dev（分支名）
+   删除指定分支 git branch -d dev(分支名)
+
+8、分支管理：一，master主干分支非常稳定，且除了发布新版本以为，平时都不能在上面干活。
+             二、干活（开发）的分支不稳定。需要时合并到master分支就行。
+   查看分支合并图:git log --graph
+   禁用分支Fast forward合并模式： --on-off
+
+9、修复bug时，1、创建新的bug分支进行修复2、合并3、删除临时分支
+   进行中的工作可进行：git stash 
+   修复后会原位继续工作：git stash pop 
+   强行删除：git branch -D 分支名
+
+10、查看远程库信息:git remote 或者git remote -v显示更详细信息
+
+推送分支：master分支是主分支，要时刻与远程同步
+开发分支：因为战友都在上面干架，所以需要远程同步
+
+
+11、从本地推送分支：git push origin branch-name 如果失败，先git pull抓取远程的新提交
+    在本地创建和远程分支对应的分支：git checkout -b branch-name origiin/branch-name,本地和远程分支的名称最好一致。
+     建立本地分支和远程分支的关联：git branch --set-upstream branch-name origin/branch-name
+    从远程抓取分支：git pull 如果有冲突，先解决冲突。
+
+12、rebase操作可以把本地未push的分叉提交历史整理成直线；
+   rebase的目的是使得我们在查看历史提交的变化时更容易，因为分叉的提交需要三方对比。
+
+  命令git tag <tagname>用于新建一个标签，默认为HEAD，也可以指定一个commit id；
+
+命令git tag -a <tagname> -m "blablabla..."可以指定标签信息；
+
+命令git tag可以查看所有标签。
+命令git push origin <tagname>可以推送一个本地标签；
+
+命令git push origin --tags可以推送全部未推送过的本地标签；
+
+命令git tag -d <tagname>可以删除一个本地标签；
+
+命令git push origin :refs/tags/<tagname>可以删除一个远程标签。
+
+
+
